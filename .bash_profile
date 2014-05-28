@@ -18,6 +18,23 @@ export PATH
 export WORKON_HOME=$HOME/.virtualenvs
 source /Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh
 
+#cd and ls in one
+function cdl()
+{
+if [ "$*" = "" ]
+then
+cd
+else
+cd "$*";
+fi
+dir;
+}
+
+#for travelling n directories backwards
+cd() {
+  builtin cd "$*" && ls
+}
+
 # virtualenv aliases
 # http://blog.doughellmann.com/2010/01/virtualenvwrapper-tips-and-tricks.html
 alias v='workon'

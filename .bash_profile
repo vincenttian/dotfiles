@@ -91,25 +91,5 @@ export PATH
  
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-# quickly navigate your filesystem from the command-line
-export MARKPATH=$HOME/.marks
-function jump {
-    cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
-}
-function mark {
-    mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
-}
-function unmark {
-    rm -i "$MARKPATH/$1"
-}
-function marks {
-    ls -l $MARKPATH | tr -s ' ' | cut -d ' ' -f 9- | sed s,$HOME,~,';1d;s/ -/\t-/;s/^/  /'
-}
-alias j="jump"
-
-# from hn/item?id=6229291
-function _jump {
-    local curr=${COMP_WORDS[COMP_CWORD]}
-    COMPREPLY=( $(compgen -W "$( \ls $MARKPATH )" -- $curr) )
-}
-complete -o default -o nospace -F _jump jump j unmark
+alias j='jump'
+source `jump-bin --bash-integration`/shell_driver
